@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{_layout :: head('404 - Not Found')}">
+</head>
+<body>
+<nav th:replace="~{_layout :: navbar}"></nav>
+
+<div class="container body-content text-center py-5">
+    <div class="py-5">
+        <i class="fas fa-exclamation-triangle fa-5x text-warning mb-4"></i>
+        <h1 class="display-4 fw-bold text-muted">404</h1>
+        <p class="lead text-muted">Sản phẩm không tìm thấy!</p>
+        <a th:href="@{/products}" class="btn btn-primary mt-3">
+            <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+        </a>
+    </div>
+</div>
+
+<footer th:replace="~{_layout :: footer}"></footer>
+</body>
+</html>

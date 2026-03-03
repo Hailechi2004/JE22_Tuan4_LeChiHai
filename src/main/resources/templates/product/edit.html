@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{_layout :: head('Edit Product')}">
+</head>
+<body>
+<nav th:replace="~{_layout :: navbar}"></nav>
+
+<div class="container body-content">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header text-white text-center py-3"
+                     style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px 12px 0 0;">
+                    <h3 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Product</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/products/edit}" th:object="${product}"
+                          method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" th:field="*{id}">
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Name</label>
+                            <input class="form-control" type="text" th:field="*{name}"
+                                   id="name" placeholder="Product Name">
+                            <div class="alert alert-warning mt-2 py-1 px-2"
+                                 th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label fw-semibold">Price:</label>
+                            <input class="form-control" type="number" th:field="*{price}"
+                                   id="price" placeholder="Price">
+                            <div class="alert alert-warning mt-2 py-1 px-2"
+                                 th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Current Image:</label>
+                            <div th:if="${product.image != null and !product.image.isEmpty()}">
+                                <img th:src="@{/images/} + ${product.image}" alt="Current Image"
+                                     height="120" width="150" class="rounded shadow-sm mb-2"
+                                     style="object-fit: cover;">
+                            </div>
+                            <input type="hidden" th:field="*{image}">
+                            <label for="imageFile" class="form-label fw-semibold">Upload New Image:</label>
+                            <input class="form-control" type="file" id="imageFile" name="imageProduct"
+                                   accept="image/png,image/jpeg">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="category" class="form-label fw-semibold">Category:</label>
+                            <select th:field="*{category.id}" class="form-control" id="category">
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}" th:text="${category.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <input type="submit" class="btn btn-warning btn-lg text-white" value="Update Product">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a th:href="@{/products}" class="text-decoration-none">
+                    <i class="fas fa-arrow-left me-1"></i>Back to list
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="~{_layout :: footer}"></footer>
+</body>
+</html>
